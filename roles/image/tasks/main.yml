@@ -1,0 +1,29 @@
+---
+- block:
+  - name: dnf installs
+    dnf:
+      name: "{{ item.name }}"
+      state: "{{ item.state }}"
+    with_items:
+    - "{{ installs }}"
+    notify:
+    - tag container
+    delegate_to: "{{ working_container }}"
+
+  - name: add user
+    user:
+      name: "{{ container_user }}"
+      shell: /bin/bash
+      groups: wheel
+      append: yes
+      create_home: no
+      password: "{{ container_user_pass }}"
+    notify:
+    - tag container
+    delegate_to: "{{ working_container }}"
+
+
+  rescue:
+  - name: cleanup and rm the container
+    command: 'buildah rm {{ working_container }}'
+  - meta: end_play

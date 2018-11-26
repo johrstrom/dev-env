@@ -1,0 +1,17 @@
+---
+- name: tag cached version
+  command: 'buildah commit {{ working_container }} {{ image_name }}:{{ image_tag }}-cached'
+  listen: tag container
+
+- name: clean dnf
+  command: "dnf clean all"
+  delegate_to: "{{ working_container }}"
+  listen: tag container
+
+- name: tag clean version
+  command: 'buildah commit {{ working_container }} {{ image_name }}:{{ image_tag }}'
+  listen: tag container
+
+- name: rm working container
+  command: 'buildah rm {{ working_container }}'
+  listen: tag container

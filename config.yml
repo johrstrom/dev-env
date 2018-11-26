@@ -1,0 +1,21 @@
+# container and image variables
+working_container: 'tmp/dev-wrk'
+image_name: 'jeffo-dev-env' #changeme
+image_tag: latest
+base_image: "{{ image_name }}:{{ image_tag }}-cached"
+#base_image: 'registry.fedoraproject.org/fedora:latest'
+
+container_user: jeff
+container_user_pass: ""
+
+
+# things to install
+installs:
+- name: golang
+  state: latest
+- name: java-openjdk
+  state: latest
+- name: java-9-openjdk
+  state: latest
+- name: java-11-openjdk
+  state: latest

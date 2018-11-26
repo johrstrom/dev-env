@@ -1,0 +1,15 @@
+- name: initialize the container
+  block:
+  - name: get base image
+    command: 'buildah from --name {{ working_container }} {{ base_image }}'
+
+  - name: add to inventory
+    add_host:
+      hostname: '{{ working_container }}'
+      ansible_connection: "buildah"
+      ansible_python_interpreter: /usr/bin/python3  # fedora container doesn't ship python2
+
+  rescue:
+  - name: cleanup and rm the container
+    command: 'buildah rm {{ working_container }}'
+  - meta: end_play
