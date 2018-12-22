@@ -27,9 +27,9 @@ I could never get handler sharing across plays to work right, so I had to divide
 
 
 ## When the playbook fails
-The playbook may fail and leave the working container in an inconsistent state.  In between runs of the
-playbook you may need to remove the container.
+If the playbook fails, the next run of the playbook will correctly handle the error of using a container that's already in use. 
 
+or the hard way directly removing the containers.
 `buildah rm tmp/dev-wrk` if you've replace the variable `working_container` then the command will be
 
 `build rm <container_name>` replacing container_name here with what you've provided.
