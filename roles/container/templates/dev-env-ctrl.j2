@@ -1,0 +1,22 @@
+#!/bin/sh
+
+max_uid_count=65536
+max_minus_uid=$((max_uid_count-UID))
+uid_plus_one=$((UID+1))
+
+echo "creating container...."
+
+podman create {% for opt in create_opts %}{{ opt }} \
+{% endfor %}
+{{ image_name }}:{{ image_tag }} /bin/bash
+
+if [ $? ne 0 ] ; then
+  exit $?
+fi
+
+echo "done creating container"
+podman container ls
+
+podman exec {% for opt in exec_opts %}{{ opt }} \
+{% endfor %}
+{{ running_container }} /bin/bash

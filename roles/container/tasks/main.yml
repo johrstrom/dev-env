@@ -1,0 +1,8 @@
+---
+#- name: create continer 
+
+- name: template sh start file
+  template:
+    src: "dev-env-ctrl.j2"
+    dest: "{{ start_script_dest }}"
+    mode: 0700
