@@ -1,6 +1,6 @@
 - name: initialize the container
   block:
-  - name: get base image
+  - name: get base image from {{ base_image }}
     command: 'buildah from --name {{ working_container }} {{ base_image }}'
 
   - name: add to inventory

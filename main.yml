@@ -3,5 +3,5 @@
   connection: local
 
   roles:
-  - name: container-ctrl
-  - name: image
+  - role: container-ctrl
+  - role: image

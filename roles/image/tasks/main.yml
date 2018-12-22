@@ -1,5 +1,12 @@
 ---
 - block:
+  - name: add visual studio repository
+    yum_repository:
+      name: vscode
+      description: Visual Sudio Code Repository
+      baseurl: 'https://packages.microsoft.com/yumrepos/vscode'
+    delegate_to: "{{ working_container }}"
+
   - name: dnf installs
     dnf:
       name: "{{ item.name }}"
@@ -21,7 +28,6 @@
     notify:
     - tag container
     delegate_to: "{{ working_container }}"
-
 
   rescue:
   - name: cleanup and rm the container
